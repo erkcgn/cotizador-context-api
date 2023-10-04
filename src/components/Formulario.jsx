@@ -1,21 +1,14 @@
-import { Fragment, useContext } from 'react'
+import { Fragment } from 'react'
 import { MARCAS, YEARS, PLANES } from '../constants/index'
-import CotizadorContext from '../context/CotizadorProvider'
 
 
 const Formulario = () => {
     
-    const { modal, cambiarState } = useContext(CotizadorContext)
-    console.log(modal)
+   
 
 
   return (
     <>
-        <button
-            onClick={cambiarState}
-        >
-            Cambiar Modal de Context
-        </button>
         <form action="">
             <div className="my-5">
                 <label htmlFor="" className="block mb-3 font-bold text-gray-400 uppercase">
