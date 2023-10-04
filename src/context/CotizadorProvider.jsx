@@ -1,29 +1,28 @@
 /* eslint-disable react/prop-types */
-import { createContext} from 'react'
+import { useState, createContext} from 'react'
 
 const CotizadorContext = createContext()
 
 const CotizadorProvider = ({children}) => {
-    const hola = "hola mundo"
-    const fnHolaMundo = () => {
-        console.log("Hola mundo desde una funcion")
+    const [modal, setModal] = useState(false)
+
+    const cambiarState = () => {
+        setModal(!modal)
     }
 
     return(
         <CotizadorContext.Provider
             value={{
-                hola,
-                fnHolaMundo
+               modal,
+               cambiarState 
             }}
         >
             {children}
         </CotizadorContext.Provider>
     )
-
 }
 
 export {
     CotizadorProvider
 }
-
 export default CotizadorContext
