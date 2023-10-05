@@ -1,9 +1,10 @@
 import { Fragment } from 'react'
 import { MARCAS, YEARS, PLANES } from '../constants/index'
+import useCotizador from '../hooks/useCotizador'
 
 
 const Formulario = () => {
-    
+    const {datos, handleChangeDatos} = useCotizador()
    
 
 
@@ -14,7 +15,12 @@ const Formulario = () => {
                 <label htmlFor="" className="block mb-3 font-bold text-gray-400 uppercase">
                     Marca
                 </label>
-                <select name="marca" id="" className="w-full p-3 bg-white border border-gray-200">
+                <select 
+                    name="marca" 
+                    className="w-full p-3 bg-white border border-gray-200"
+                    onChange={e => handleChangeDatos(e)}
+                    value={datos.marca}
+                >
                     <option value="">-- Selecciona Marca --</option>
                     {MARCAS.map(marca => (
                         <option
@@ -30,7 +36,12 @@ const Formulario = () => {
                 <label htmlFor="" className="block mb-3 font-bold text-gray-400 uppercase">
                     Año
                 </label>
-                <select name="marca" id="" className="w-full p-3 bg-white border border-gray-200">
+                <select 
+                    name="year" 
+                    className="w-full p-3 bg-white border border-gray-200"
+                    onChange={e => handleChangeDatos(e)}
+                    value={datos.year}
+                >
                     <option value="">-- Selecciona Año --</option>
                     {YEARS.map(year => (
                         <option
@@ -43,14 +54,19 @@ const Formulario = () => {
                 </select>
             </div>
             <div className="my-5">
-                <label htmlFor="" className="block mb-3 font-bold text-gray-400 uppercase">
+                <label className="block mb-3 font-bold text-gray-400 uppercase">
                     Elige un Plan
                 </label>
                 <div className='flex gap-3 items-center'>
                         {PLANES.map(plan => (
                             <Fragment key={plan.id}>
-                                <label htmlFor="">{plan.nombre}</label>
-                                <input type="radio" name='plan' value={plan.id} />
+                                <label>{plan.nombre}</label>
+                                <input 
+                                    type="radio" 
+                                    name='plan' 
+                                    value={plan.id}
+                                    onChange={e => handleChangeDatos(e)}
+                                />
                             </Fragment>
                         ))}
                 </div>
