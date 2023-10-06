@@ -14,6 +14,7 @@ const CotizadorProvider = ({children}) => {
 
     const [error, setError] = useState('')
     const [resultado, setResultado] = useState(0)
+    const [cargando, setCargando] = useState(false)
 
     const handleChangeDatos = e => {
         setDatos({
@@ -25,13 +26,10 @@ const CotizadorProvider = ({children}) => {
     const cotizarSeguro = () => {
         //una base
         let resultado = 2000
-
         //obtener diferencia de años
-        const diferencia = obtenerDiferenciaYear(datos.year)
-        
-        //hay que restar el 3% x c/año
-        resultado -= ((diferencia * 3) * resultado ) / 100
-        
+        const diferencia = obtenerDiferenciaYear(datos.year)        
+        //hay que restar el 3% x c/año        
+        resultado -= ((diferencia * 3) * resultado ) / 100        
         //americano 15%
         //europeo 30%
         //asiatico 5%
@@ -39,11 +37,15 @@ const CotizadorProvider = ({children}) => {
         //basico 20%
         //completo 50%
         resultado *= calcularPlan(datos.plan)
-
         //Formatear dinero        
         resultado = formatearDinero(resultado)
 
-        setResultado(resultado)
+        setCargando(true)
+        setTimeout(() => {
+            setResultado(resultado)
+            setCargando(false)
+        }, 3000);
+        
     }
 
     return(
@@ -54,7 +56,8 @@ const CotizadorProvider = ({children}) => {
                 error,
                 setError,
                 cotizarSeguro,
-                resultado
+                resultado,
+                cargando
             }}
         >
             {children}
